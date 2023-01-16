@@ -1,0 +1,15 @@
+{
+  "name": "testserver",
+  "version": "1.0.0",
+  "description": "just heap of features",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "url-encode-decode": "^1.0.0"
+  }
+}

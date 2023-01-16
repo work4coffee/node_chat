@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+
+        body {
+            background-image: url("bicycle1.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .wrapper {
+            margin: auto;
+            width: 500px;
+
+            background-color: #333;
+            border-radius: 6px;
+            border: 2px solid #dedede88;
+            min-height: 700px;
+        }
+
+        #form {
+            padding: 10px;
+        }
+
+        #submit {
+            width: 80px;
+            height: 30px;
+            border: 1px solid black;
+            border-radius: 3px;
+        }
+
+        #message {
+            width: 400px;
+            height: 80px;
+        }
+    </style>
+    <title>Simple chat</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form id="form">
+            <textarea name="message" id="message" cols="80" rows="40"></textarea>
+            <input type="submit" value="Submit" id="submit">
+        </form>
+        <ul id="messages"></ul>
+    </div>
+    <script>
+        let colors = ["red", "green", "blue"]
+        let currentColor = 0
+
+        function poll() {
+
+            console.log("creating connection")
+
+            let connection = new XMLHttpRequest()
+
+            connection.open("GET", "./connection")
+
+            connection.send()
+
+
+            connection.onload = function () {
+
+                let li = document.createElement("li")
+                li.style.color = colors[currentColor]
+                currentColor++
+                currentColor = currentColor%colors.length
+
+                li.textContent = connection.responseText
+
+
+                messages.appendChild(li)
+
+                poll()
+            }
+        }
+
+
+        form.onsubmit = function (event) {
+
+            event.preventDefault()
+
+
+            let text = message.value
+
+
+            let request = new XMLHttpRequest()
+
+            request.open("POST", "/message")
+
+            request.setRequestHeader("Content-type", "text/plain")
+
+            request.send(text)
+
+        }
+
+        poll()
+
+    </script>
+</body>
+
+</html>
